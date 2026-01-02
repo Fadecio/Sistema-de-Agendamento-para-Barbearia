@@ -17,7 +17,6 @@
         <h1 class="logo">BARBEARIA FUTURISTA</h1>
         <nav>
             <ul class="nav-links">
-                <li><a href="#inicio">Início</a></li>
                 <li><a href="#barbeiros">Barbeiros</a></li>
                 <li><a href="#agendamento">Agendamento</a></li>
                 <li><a href="#quem-somos">Quem Somos</a></li>
@@ -52,9 +51,30 @@
             </div>
         </section>
 
+        <section class="quem-somos" id="quem-somos">
+            <h3>Quem Somos</h3>
+            <p class="descricao">A Barbearia Futurista é um espaço inovador que combina tecnologia de ponta com técnicas tradicionais de
+                barbearia para oferecer uma experiência única aos nossos clientes. Nossa equipe de barbeiros
+                especializados está sempre atualizada com as últimas tendências e estilos, garantindo cortes modernos e
+                personalizados.</p>
+            <div class="quem-somos-imagens">
+                <img src="src/images/barbearia.webp" alt="Barbearia Futurista">
+                
+            </div>
+            <p class="descricao">Além disso, utilizamos ferramentas avançadas e produtos de alta qualidade para cuidar da saúde do cabelo
+                e da pele. Na Barbearia Futurista, cada cliente é tratado com atenção e profissionalismo, proporcionando
+                um ambiente acolhedor e futurista onde você pode relaxar e renovar seu visual.</p>
+        </section>
+
         <section class="agendamento">
 
-            <!-- BARBEIRO -->
+            <h3 id="agendamento">Preencha os campos abaixo e agende seu horário</h3>
+            <div class="campo">
+                <label for="cliente">Nome</label>
+                <input type="text" id="cliente" placeholder="Seu nome e sobrenome">
+            </div>
+
+
             <div class="campo">
                 <label for="barbeiro">Barbeiro</label>
                 <select id="barbeiro">
@@ -64,18 +84,40 @@
                 </select>
             </div>
 
-            <!-- DATA -->
+
+            <div class="campo">
+                <label for="servico">Serviço</label>
+                <select id="servico">
+                    <option value="corte">Corte de Cabelo</option>
+                    <option value="barba">Barba</option>
+                    <option value="botox">Botox Capilar</option>
+                    <option value="combo">Combo Corte + Barba</option>
+                </select>
+            </div>
+
+
             <div class="campo">
                 <label for="data">Data</label>
                 <input type="date" id="data">
             </div>
 
-            <!-- HORÁRIOS -->
+
             <div class="horarios" id="horarios"></div>
 
         </section>
+
+        <div class="botao-container">
+            <button class="agendar">Agendar</button>
+        </div>
+
+
     </main>
-    <footer>
+    <footer class="rodape">        
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#inicio">Início</a></li>
+            </ul>
+        </nav>
         <p>Projeto Frontend • HTML, CSS e JavaScript</p>
     </footer>
 
