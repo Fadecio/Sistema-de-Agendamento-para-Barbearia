@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Barbearia Futurista | Agendamento</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <h1 class="logo">BARBEARIA FUTURISTA</h1>
+    </header>
+
+    <section class="hero">
+        <h2>Agende seu horário</h2>
+        <p>Escolha o barbeiro, a data e o horário</p>
+    </section>
+
+    <section class="agendamento">
+
+        <!-- BARBEIRO -->
+        <div class="campo">
+            <label for="barbeiro">Barbeiro</label>
+            <select id="barbeiro">
+                <option value="Alex Neon">Alex Neon</option>
+                <option value="Rafa Cyber">Rafa Cyber</option>
+                <option value="Lucas Tech">Lucas Tech</option>
+            </select>
+        </div>
+
+        <!-- DATA -->
+        <div class="campo">
+            <label for="data">Data</label>
+            <input type="date" id="data">
+        </div>
+
+        <!-- HORÁRIOS -->
+        <div class="horarios" id="horarios"></div>
+
+    </section>
+
+    <footer>
+        <p>Projeto Frontend • HTML, CSS e JavaScript</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

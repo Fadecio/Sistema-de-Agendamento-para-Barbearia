@@ -1,0 +1,173 @@
+/* =====================
+   RESPONSIVO - TABLET E MOBILE
+===================== */
+@media (max-width: 768px) {
+
+  body {
+    text-align: center;
+  }
+
+ 
+  .header {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  nav a {
+    margin: 10px;
+  }
+
+  
+  .hero {
+    padding: 40px 15px;
+  }
+
+  .hero h2 {
+    font-size: 2rem;
+  }
+
+  .hero p {
+    max-width: 100%;
+  }
+
+  
+  .agendamento {
+    max-width: 100%;
+    padding: 30px 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .campo {
+    width: 100%;
+    max-width: 320px;
+    align-items: center;
+    text-align: left;
+  }
+
+  .campo label {
+    width: 100%;
+    text-align: left;
+  }
+
+  .campo input,
+  .campo select {
+    width: 100%;
+  }
+
+  
+  .horarios {
+    width: 100%;
+    max-width: 320px;
+    grid-template-columns: repeat(2, 1fr);
+    justify-content: center;
+  }
+
+  .horario {
+    text-align: center;
+  }
+
+  
+  .cards {
+    justify-items: center;
+  }
+
+  .card {
+    max-width: 320px;
+    width: 100%;
+  }
+
+  
+  .servicos-grid {
+    justify-items: center;
+  }
+
+  .servico-card {
+    max-width: 320px;
+    width: 100%;
+  }
+
+  
+  footer {
+    padding: 20px 10px;
+    font-size: 0.85rem;
+  }
+}
+
+/* =====================
+   RESPONSIVO - MOBILE PEQUENO 
+===================== */
+
+@media (max-width: 420px) {
+
+  .hero {
+    padding: 30px 10px;
+  }
+
+  .hero h2 {
+    font-size: 1.6rem;
+    line-height: 1.1;
+    max-width: 92%;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    hyphens: auto;
+    white-space: normal;
+  }
+
+  .hero p {
+    font-size: 0.9rem;
+    margin-top: 8px;
+  }
+
+  .cta {
+    padding: 12px 30px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero {
+    padding: 24px 8px;
+    min-height: 60vh;
+  }
+
+  .hero h2 {
+    font-size: 1.4rem;
+  }
+
+  .hero p {
+    font-size: 0.85rem;
+  }
+
+  .cta {
+    padding: 10px 24px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .hero {
+    padding: 18px 6px;
+    min-height: 55vh;
+  }
+
+  .hero h2 {
+    font-size: 1.1rem;
+  }
+
+  .hero p {
+    font-size: 0.8rem;
+  }
+
+  .cta {
+    padding: 8px 18px;
+    font-size: 0.85rem;
+  }
+}

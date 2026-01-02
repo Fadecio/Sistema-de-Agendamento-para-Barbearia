@@ -1,0 +1,208 @@
+body {
+  background: radial-gradient(circle at top, #0a0f1f, #05060d);
+  color: #fff;
+}
+
+.header {
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+  animation: slideDown 1s ease forwards;
+}
+
+.logo {
+  color: #00f6ff;
+  text-shadow: 0 0 15px #00f6ff;
+}
+
+nav a {
+  margin-left: 20px;
+  opacity: 0.8;
+  transition: opacity 0.3s;
+}
+
+nav a:hover {
+  opacity: 1;
+}
+
+.hero {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.7), #05060d);
+}
+
+.hero-content {
+  animation: fadeUp 1.2s ease forwards;
+}
+
+.hero h2 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  text-shadow: 0 0 25px #7f00ff;
+}
+
+.hero p {
+  display: block;
+  max-width: 600px;
+  margin: 0 auto 30px;
+  opacity: 0.85;
+}
+
+.cta {
+  padding: 15px 45px;
+  background: linear-gradient(90deg, #00f6ff, #7f00ff);
+  border-radius: 40px;
+  color: #000;
+  font-weight: bold;
+  box-shadow: 0 0 25px rgba(127, 0, 255, 0.6);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.cta:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 40px rgba(0, 246, 255, 0.9);
+}
+
+.servicos {
+  padding: 60px 40px;
+  text-align: center;
+}
+
+.servicos-grid {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 25px;
+}
+
+.servico-card {
+  padding: 30px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(127, 0, 255, 0.3);
+  backdrop-filter: blur(10px);
+  animation: pulseGlow 3s infinite;
+}
+
+.barbeiros {
+  padding: 60px 40px;
+}
+
+.cards {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border-radius: 20px;
+  text-align: center;
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  transition: transform 0.4s, box-shadow 0.4s;
+}
+
+.card:hover {
+  transform: translateY(-12px) scale(1.03);
+  box-shadow: 0 0 35px rgba(0, 255, 255, 0.6);
+}
+
+.card img {
+  width: 100%;
+  border-radius: 15px;
+}
+
+select {
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: #111;
+  color: #fff;
+  font-size: 1rem;
+}
+
+.horario.indisponivel {
+  opacity: 0.3;
+  pointer-events: none;
+  text-decoration: line-through;
+}
+.agenda {
+  padding: 60px 40px;
+  text-align: center;
+}
+
+.agenda-grid {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.horario {
+  padding: 18px;
+  border-radius: 12px;
+  border: 1px solid rgba(127, 0, 255, 0.4);
+  background: rgba(127, 0, 255, 0.1);
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.horario.indisponivel {
+  opacity: 0.3;
+  pointer-events: none;
+  text-decoration: line-through;
+}
+
+.horario:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(0, 246, 255, 0.7);
+}
+
+footer {
+  padding: 30px;
+  text-align: center;
+  opacity: 0.6;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 10px rgba(127, 0, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(0, 246, 255, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(127, 0, 255, 0.3);
+  }
+}
