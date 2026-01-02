@@ -6,45 +6,75 @@
     <title>Barbearia Futurista | Agendamento</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="src/css/reset.css">
+    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="stylesheet" href="src/css/responsive.css">
 </head>
 
 <body>
 
     <header class="header">
         <h1 class="logo">BARBEARIA FUTURISTA</h1>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#barbeiros">Barbeiros</a></li>
+                <li><a href="#agendamento">Agendamento</a></li>
+                <li><a href="#quem-somos">Quem Somos</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <section class="hero">
-        <h2>Agende seu horário</h2>
-        <p>Escolha o barbeiro, a data e o horário</p>
-    </section>
+    <main>
+        <section class="hero">
+            <h2>Agende seu horário</h2>
+            <p>Escolha o barbeiro, a data e o horário</p>
+        </section>
 
-    <section class="agendamento">
+        <!-- GALERIA DE IMAGENS DOS BARBEIROS -->
+        <section class="barbeiros-gallery" id="barbeiros">
+            <h3>Nossos Barbeiros</h3>
+            <div class="gallery-grid">
+                <figure class="gallery-item">
+                    <img src="src/images/barbeiro_1.png" alt="Foto ilustrativa Alex Neon - Fade & Design">
+                    <figcaption>Alex Neon — Fade & Design</figcaption>
+                </figure>
 
-        <!-- BARBEIRO -->
-        <div class="campo">
-            <label for="barbeiro">Barbeiro</label>
-            <select id="barbeiro">
-                <option value="Alex Neon">Alex Neon</option>
-                <option value="Rafa Cyber">Rafa Cyber</option>
-                <option value="Lucas Tech">Lucas Tech</option>
-            </select>
-        </div>
+                <figure class="gallery-item">
+                    <img src="src/images/barbeiro_2.png" alt="Foto ilustrativa Rafa Cyber - Barba & Estilo">
+                    <figcaption>Rafa Cyber — Barba & Estilo</figcaption>
+                </figure>
 
-        <!-- DATA -->
-        <div class="campo">
-            <label for="data">Data</label>
-            <input type="date" id="data">
-        </div>
+                <figure class="gallery-item">
+                    <img src="src/images/barbeiro_3.png" alt="Foto ilustrativa Lucas Tech - Corte Clássico">
+                    <figcaption>Lucas Tech — Corte Clássico</figcaption>
+                </figure>
+            </div>
+        </section>
 
-        <!-- HORÁRIOS -->
-        <div class="horarios" id="horarios"></div>
+        <section class="agendamento">
 
-    </section>
+            <!-- BARBEIRO -->
+            <div class="campo">
+                <label for="barbeiro">Barbeiro</label>
+                <select id="barbeiro">
+                    <option value="Alex Neon">Alex Neon</option>
+                    <option value="Rafa Cyber">Rafa Cyber</option>
+                    <option value="Lucas Tech">Lucas Tech</option>
+                </select>
+            </div>
 
+            <!-- DATA -->
+            <div class="campo">
+                <label for="data">Data</label>
+                <input type="date" id="data">
+            </div>
+
+            <!-- HORÁRIOS -->
+            <div class="horarios" id="horarios"></div>
+
+        </section>
+    </main>
     <footer>
         <p>Projeto Frontend • HTML, CSS e JavaScript</p>
     </footer>

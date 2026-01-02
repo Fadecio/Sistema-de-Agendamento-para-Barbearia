@@ -1,31 +1,37 @@
 # Barbearia Futurista – Sistema de Agendamento
 
-Projeto frontend desenvolvido para portfólio profissional, simulando um sistema moderno de agendamento para barbearias.
+Projeto frontend para portfólio que simula um sistema de agendamento moderno para barbearias.
 
-## 🔥 Funcionalidades
+## Resumo
+Uma página estática com seleção de barbeiro, escolha de data e horários. O projeto demonstra lógica de agendamento, manipulação de datas e armazenamento local usando LocalStorage.
+
+## Funcionalidades
 - Seleção de barbeiro
-- Agendamento baseado na data atual
-- Bloqueio de datas passadas
-- Bloqueio de horários passados no dia atual
-- Bloqueio de horários já agendados
+- Escolha de data e horários disponíveis
+- Bloqueio de datas passadas e horários indisponíveis
 - Salvamento de agendamentos no LocalStorage
 
-## 🛠️ Tecnologias utilizadas
+## Tecnologias
 - HTML5 semântico
 - CSS3 (Flexbox, Grid, animações)
-- JavaScript puro (Date, DOM, LocalStorage)
 
-## 🎯 Objetivo
-Demonstrar habilidades em:
-- Lógica de agendamento
-- Manipulação de datas
-- Organização de código frontend
-- Criação de interfaces modernas e responsivas
 
-## 🚀 Próximos passos
-- Integração com backend (API / banco de dados)
-- Autenticação de usuários
-- Versão em React
+## Estrutura do projeto
+- `index.html` — página principal
+- `css/` — estilos (`reset.css`, `style.css`, `responsive.css`)
 
-## 👨‍💻 Autor
-Projeto desenvolvido para fins educacionais e portfólio.
+
+
+## Como abrir e testar
+1. Abra o arquivo `index.html` no navegador (duplo clique ou arraste para o navegador).
+2. Para testar responsividade: abra DevTools (F12) → Toggle device toolbar → selecione dimensões ou defina 368×448 para simular um Apple Watch Series 6.
+3. Para limpar dados de teste: abra DevTools → Application → Local Storage → remova as chaves relacionadas ao projeto.
+
+## Próximos passos sugeridos
+- Adicionar javascript
+- Adicionar N8N para atendimento automatizado
+- Integrar com backend para persistência real
+- Adicionar testes unitários para a lógica de agendamento
+
+## Autor
+Projeto criado para fins educacionais e portfólio.

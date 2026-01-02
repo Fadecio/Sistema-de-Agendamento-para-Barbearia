@@ -4,3 +4,12 @@
   box-sizing: border-box;
   font-family: 'Segoe UI', sans-serif;
 }
+
+ul{
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;  
+  list-style: none;
+}
