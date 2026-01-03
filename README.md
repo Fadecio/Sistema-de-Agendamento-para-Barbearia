@@ -3,7 +3,7 @@
 Projeto frontend para portfólio que simula um sistema de agendamento moderno para barbearias.
 
 ## Resumo
-Uma página estática com seleção de barbeiro, escolha de data e horários. O projeto demonstra lógica de agendamento, manipulação de datas e armazenamento local usando LocalStorage.
+Página estática que permite selecionar barbeiro, data e horário; inclui validações simples e armazenamento local (LocalStorage).
 
 ## Funcionalidades
 - Seleção de barbeiro
@@ -15,23 +15,21 @@ Uma página estática com seleção de barbeiro, escolha de data e horários. O 
 - HTML5 semântico
 - CSS3 (Flexbox, Grid, animações)
 
-
 ## Estrutura do projeto
-- `index.html` — página principal
-- `css/` — estilos (`reset.css`, `style.css`, `responsive.css`)
-
-
+- [index.html](index.html) — página principal
+- [src/css/style.css](src/css/style.css) — estilos principais
+- [src/css/reset.css](src/css/reset.css)
+- [src/css/responsive.css](src/css/responsive.css)
+- [src/images/](src/images/) — imagens usadas no layout
 
 ## Como abrir e testar
-1. Abra o arquivo `index.html` no navegador (duplo clique ou arraste para o navegador).
-2. Para testar responsividade: abra DevTools (F12) → Toggle device toolbar → selecione dimensões ou defina 368×448 para simular um Apple Watch Series 6.
-3. Para limpar dados de teste: abra DevTools → Application → Local Storage → remova as chaves relacionadas ao projeto.
+1. Abra [index.html](index.html) no navegador (duplo clique ou arraste para o navegador).
+2. Para testar responsividade: abra DevTools (F12) → Toggle device toolbar.
+3. Para limpar dados de teste: DevTools → Application → Local Storage → remova as chaves relacionadas ao projeto.
 
 ## Próximos passos sugeridos
-- Adicionar javascript
-- Adicionar N8N para atendimento automatizado
-- Integrar com backend para persistência real
-- Adicionar testes unitários para a lógica de agendamento
+- Adicionar lógica JS para persistência remota (backend)
+- Melhorar testes e acessibilidade
 
 ## Autor
 Projeto criado para fins educacionais e portfólio.
