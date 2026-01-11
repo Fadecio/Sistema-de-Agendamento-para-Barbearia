@@ -242,6 +242,17 @@ button.agendar:hover {
   box-shadow: 0 0 20px #f3f04e;
 }
 
+.erro {
+  color: red;
+  font-size: 0.9em;
+  margin-top: 4px;
+  display: block;
+}
+
+.mensagem.sucesso {
+  color: green;
+}
+
 @keyframes slideDown {
   from {
     opacity: 0;

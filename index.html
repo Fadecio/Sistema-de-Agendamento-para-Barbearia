@@ -76,51 +76,58 @@
         </section>
 
         <section class="agendamento">
-
             <h3 id="agendamento">Preencha os campos abaixo e agende seu horário</h3>
-            <div class="campo" id="cliente">
-                <label for="cliente">Nome</label>
-                <input type="text" id="cliente" placeholder="Nome e Sobrenome">
-            </div>
 
+            <form id="form-agendamento">
+                <div class="campo">
+                    <label for="cliente">Nome</label>
+                    <input type="text" id="cliente" placeholder="Nome e Sobrenome">
+                    <small class="erro"></small>
+                </div>
 
-            <div class="campo">
-                <label for="barbeiro">Barbeiro</label>
-                <select id="barbeiro">
-                    <option value="Alex Neon">Alex Neon</option>
-                    <option value="Rafa Cyber">Rafa Cyber</option>
-                    <option value="Lucas Tech">Lucas Tech</option>
-                </select>
-            </div>
+                <div class="campo">
+                    <label for="barbeiro">Barbeiro</label>
+                    <select id="barbeiro">
+                        <option value="Alex Neon">Alex Neon</option>
+                        <option value="Rafa Cyber">Rafa Cyber</option>
+                        <option value="Lucas Tech">Lucas Tech</option>
+                        <small class="erro"></small>
+                    </select>
+                </div>
 
+                <div class="campo">
+                    <label for="servico">Serviço</label>
+                    <select id="servico">
+                        <option value="corte">Corte de Cabelo</option>
+                        <option value="barba">Barba</option>
+                        <option value="botox">Botox Capilar</option>
+                        <option value="combo">Combo 1 => Corte + Barba</option>
+                        <option value="combo">Combo 2 => Corte + Barba + Botox</option>
+                        <small class="erro"></small>
+                    </select>
+                </div>
 
-            <div class="campo">
-                <label for="servico">Serviço</label>
-                <select id="servico">
-                    <option value="corte">Corte de Cabelo</option>
-                    <option value="barba">Barba</option>
-                    <option value="botox">Botox Capilar</option>
-                    <option value="combo">Combo Corte + Barba</option>
-                </select>
-            </div>
+                <div class="campo">
+                    <label for="data">Data</label>
+                    <input type="date" id="data">
+                    <small class="erro"></small>
+                </div>
 
+                <div class="campo">
+                    <label for="hora">Horário</label>
+                    <select id="hora"></select>
+                    <small class="erro"></small>
+                </div>
 
-            <div class="campo" id="data">
-                <label for="data">Data</label>
-                <input type="date" id="data">
-            </div>
+                <div class="botao-container">
+                    <button class="agendar" type="submit">Agendar</button>
+                </div>
 
-
-            <div class="horarios" id="horarios"></div>
-
+                <div id="mensagem" class="mensagem"></div>
+            </form>
         </section>
-
-        <div class="botao-container">
-            <button class="agendar">Agendar</button>
-        </div>
-
-
     </main>
+
     <footer class="rodape">
         <nav>
             <ul class="nav-links">
