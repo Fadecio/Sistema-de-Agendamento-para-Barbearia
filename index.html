@@ -7,24 +7,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="src/css/reset.css">
-    <link rel="stylesheet" href="src/css/style.css">
-    <link rel="stylesheet" href="src/css/responsive.css">
+    <link rel="stylesheet" href="src/css/body.css">
+    <link rel="stylesheet" href="src/css/header.css">
+    <link rel="stylesheet" href="src/css/hero.css">
+    <link rel="stylesheet" href="src/css/barbeiros.css">
+    <link rel="stylesheet" href="src/css/quem-somos.css">
+    <link rel="stylesheet" href="src/css/agendamento.css">
+    <link rel="stylesheet" href="src/css/botao.css">
+    <link rel="stylesheet" href="src/css/rodape.css">
 </head>
 
 <body>
 
-    <header class="header" id="inicio">
+    <header class="header" id="header">
         <div class="logo">
             <img src="src/images/logo.jpg" alt="">
-            <h1>BARBEARIA FUTURISTA</h1>
         </div>
-        <nav>
-            <button class="menu-toggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
+        <h1>BARBEARIA FUTURISTA</h1>
 
-            <ul class="nav-links">
+        <input type="checkbox" class="menu-toggle" id="menu-toggle">
+        <label for="menu-toggle" class="menu-label">☰</label>
+        
+        <nav class="nav-links">            
+            <ul >
                 <li><a href="#barbeiros">Barbeiros</a></li>
-                <li><a href="#agendamento">Agendamento</a></li>
                 <li><a href="#quem-somos">Quem Somos</a></li>
+                <li><a href="#agendamento">Agendamento</a></li>
             </ul>
         </nav>
     </header>

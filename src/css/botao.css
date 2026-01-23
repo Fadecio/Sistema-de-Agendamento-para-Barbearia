@@ -1,0 +1,33 @@
+.botao-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+button.agendar {
+  width: 50%;
+  padding: 12px 25px;
+  background: linear-gradient(90deg, #7f00ff, #00f6ff);
+  border: none;
+  border-radius: 25px;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+button.agendar:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 20px #f3f04e;
+}
+
+.erro {
+  color: red;
+  font-size: 0.9em;
+  margin-top: 4px;
+  display: block;
+}
+
+.mensagem.sucesso {
+  color: green;
+}
