@@ -2,14 +2,40 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe UI', sans-serif;
 }
 
-ul{
-  list-style-type: none;
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+}
+
+img,
+picture,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  border: 0;
+}
+
+ul,
+ol {
+  list-style: none;
 }
 
 a {
-  text-decoration: none;  
-  list-style: none;
+  color: inherit;
+  text-decoration: none;
 }

@@ -1,0 +1,45 @@
+.barbers-grid {
+  display: grid;
+  gap: var(--space-5);
+  justify-items: center;
+}
+
+.barber-card {
+  width: 100%;
+  max-width: 420px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-neon-secondary);
+}
+
+.barber-card img {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  transition: transform var(--transition-base), filter var(--transition-base);
+}
+
+.barber-card:hover img {
+  filter: brightness(1.14);
+}
+
+.barber-card-content {
+  padding: var(--space-4);
+}
+
+.barber-card h3 {
+  margin-bottom: var(--space-1);
+  font-size: 1.25rem;
+}
+
+.barber-card p {
+  color: var(--color-muted);
+}
+
+@media (min-width: 700px) {
+  .barbers-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

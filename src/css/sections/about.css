@@ -1,0 +1,40 @@
+.about-grid {
+  display: grid;
+  gap: var(--space-6);
+  align-items: center;
+}
+
+.about-content {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.about-content h2 {
+  text-align: center;
+}
+
+.about-content p {
+  width: 100%;
+  max-width: none;
+  text-align: justify;
+}
+
+.about-image-card {
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-neon-primary);
+}
+
+.about-image-card img {
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  object-fit: cover;
+}
+
+@media (min-width: 820px) {
+  .about-grid {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  }
+}

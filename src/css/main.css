@@ -1,0 +1,12 @@
+@import url("./reset.css");
+@import url("./variaveis.css");
+@import url("./base.css");
+@import url("./components/button.css");
+@import url("./components/forms.css");
+@import url("./sections/header.css");
+@import url("./sections/hero.css");
+@import url("./sections/barbers.css");
+@import url("./sections/about.css");
+@import url("./sections/booking.css");
+@import url("./sections/appointments.css");
+@import url("./sections/footer.css");
