@@ -1,23 +1,39 @@
+import { initAnimations } from "./animations.js";
+
+function getErrorElement(inputElement) {
+  if (!inputElement) return null;
+  const field = inputElement.closest(".form-field");
+  if (!field) return null;
+  return field.querySelector(".field-error");
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const clienteInput = document.getElementById("cliente");
   const barbeiroInput = document.getElementById("barbeiro");
   const servicoInput = document.getElementById("servico");
   const dataInput = document.getElementById("data");
-  const horaSelect = document.getElementById("hora"); 
+  const horaSelect = document.getElementById("hora");
   const form = document.getElementById("form-agendamento");
   const mensagem = document.getElementById("mensagem");
 
-  for (let h = 8; h <= 20; h++) {
+  if (!form || !horaSelect || !mensagem) {
+    console.error("Estrutura do formulário não encontrada no DOM.");
+    return;
+  }
+
+  initAnimations();
+
+  for (let hour = 8; hour <= 20; hour++) {
     ["00", "30"].forEach((min) => {
       const option = document.createElement("option");
-      option.value = `${String(h).padStart(2, "0")}:${min}`;
-      option.textContent = `${String(h).padStart(2, "0")}:${min}`;
+      option.value = `${String(hour).padStart(2, "0")}:${min}`;
+      option.textContent = `${String(hour).padStart(2, "0")}:${min}`;
       horaSelect.appendChild(option);
     });
   }
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
 
     // lista de campos com referência ao <small> de erro
     const campos = [
@@ -31,15 +47,21 @@ document.addEventListener("DOMContentLoaded", () => {
     let temErro = false;
 
     // limpar mensagens antigas
-    document.querySelectorAll(".erro").forEach(el => el.textContent = "");
+    document.querySelectorAll(".field-error").forEach((element) => {
+      element.textContent = "";
+    });
+    mensagem.textContent = "";
 
-    campos.forEach(c => {
-      const campoDiv = c.elemento.closest(".campo");
-      const erroMsg = campoDiv.querySelector(".erro");
+    campos.forEach((campo) => {
+      const erroMsg = getErrorElement(campo.elemento);
 
-      if (!c.elemento.value.trim()) {
-        erroMsg.textContent = `O campo ${c.nome} é obrigatório.`;
+      if (!erroMsg) return;
+
+      if (!campo.elemento.value.trim()) {
+        erroMsg.textContent = `O campo ${campo.nome} é obrigatório.`;
         temErro = true;
+      } else {
+        erroMsg.textContent = "";
       }
     });
 
@@ -58,10 +80,7 @@ document.addEventListener("DOMContentLoaded", () => {
     lista.push(agendamento);
     localStorage.setItem("agendamentos", JSON.stringify(lista));
 
-    console.log("Agendamento:", agendamento);
-
-    alert("Agendamento salvo com sucesso!");
+    mensagem.textContent = "Agendamento salvo com sucesso!";
     form.reset();
-
   });
 });

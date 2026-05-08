@@ -11,6 +11,8 @@
 
 .booking-copy h2 {
   text-align: center;
+  white-space: wrap;
+  font-size: clamp(1.5rem, 5vw, 3rem);
 }
 
 .booking-form {
