@@ -259,7 +259,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (ocupado) {
         option.textContent = `${hour} — ocupado`;
       } else if (passou) {
-        option.textContent = `${hour} — indisponível`;
+        option.textContent = `${hour} — expirado`;
       } else {
         option.textContent = hour;
       }
@@ -314,7 +314,6 @@ document.addEventListener("DOMContentLoaded", () => {
   form.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    
     const campos = [
       { elemento: clienteInput, nome: "Nome" },
       { elemento: barbeiroInput, nome: "Barbeiro" },
@@ -382,13 +381,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const agendamento = {
-      id: crypto.randomUUID(),
+      id: newAppointmentId(),
+      criadoEm: new Date().toISOString(),
       cliente: clienteInput.value.trim(),
       barbeiro: barbeiroInput.value.trim(),
       servico: servicoInput.value.trim(),
       data: dataInput.value.trim(),
       hora: horaSelect.value.trim(),
-      criadoEm: new Date().toISOString(),
     };
 
     const lista = getStoredAppointments();

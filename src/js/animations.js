@@ -1,5 +1,6 @@
 export function initAnimations() {
-  if (!window.gsap) return;
+  const gsap = window.gsap;
+  if (!gsap) return;
 
   const reduzirMovimento = window.matchMedia(
     "(prefers-reduced-motion: reduce)",
@@ -9,7 +10,8 @@ export function initAnimations() {
     return;
   }
 
-  if (window.ScrollTrigger) {
+  const ScrollTrigger = window.ScrollTrigger;
+  if (ScrollTrigger) {
     gsap.registerPlugin(ScrollTrigger);
   }
 
