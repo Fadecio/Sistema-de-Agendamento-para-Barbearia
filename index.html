@@ -1,214 +1,211 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Sistema mobile first de agendamento para a Barbearia Futurista."/>
-    <title>Barbearia Futurista | Agendamento</title>
-    
-    <link rel="stylesheet" href="src/css/main.css">
-    
-  </head>
-  <body>
-    <a class="skip-link" href="#conteudo-principal">Pular para o conteúdo principal</a>
 
-    <header class="site-header" id="inicio">
-      <div class="header-container">
-        <a class="brand" href="#inicio" aria-label="Voltar ao início da página">
-          <img src="src/images/logo.jpg" alt="Logo da Barbearia Futurista" class="brand-logo"/>
-          <span class="brand-name">Barbearia Futurista</span>
-        </a>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Sistema mobile first de agendamento para a Barbearia Futurista." />
+  <title>Barbearia Futurista | Agendamento</title>
 
-        <input type="checkbox" id="menu-toggle" class="menu-toggle" aria-hidden="true"/>
-        <label class="menu-button" for="menu-toggle" aria-label="Abrir ou fechar menu de navegação">
-          <span></span>
-          <span></span>
-          <span></span>
-        </label>
+  <link rel="stylesheet" href="src/css/main.css">
 
-        <nav class="site-nav" aria-label="Navegação principal">
-          <ul>
-            <li><a href="#barbeiros">Barbeiros</a></li>
-            <li><a href="#quem-somos">Quem somos</a></li>
-            <li><a href="#agendamento">Agendamento</a></li>
-            <li><a href="#agendamentos">Agenda</a></li>
-          </ul>
-        </nav>
+</head>
+
+<body>
+  <a class="skip-link" href="#conteudo-principal">Pular para o conteúdo principal</a>
+
+  <header class="site-header" id="inicio">
+    <div class="header-container">
+      <a class="brand" href="#inicio" aria-label="Voltar ao início da página">
+        <img src="src/images/logo.jpg" alt="Logo da Barbearia Futurista" class="brand-logo" />
+        <span class="brand-name">Barbearia Futurista</span>
+      </a>
+
+      <input type="checkbox" id="menu-toggle" class="menu-toggle" aria-hidden="true" />
+      <label class="menu-button" for="menu-toggle" aria-label="Abrir ou fechar menu de navegação">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+
+      <nav class="site-nav" aria-label="Navegação principal">
+        <ul>
+          <li><a href="#barbeiros">Barbeiros</a></li>
+          <li><a href="#quem-somos">Quem somos</a></li>
+          <li><a href="#agendamento">Agendamento</a></li>
+          <li><a href="#agendamentos">Agenda</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="conteudo-principal">
+    <section class="hero section-spacing" aria-labelledby="hero-title">
+      <div class="container hero-content">
+        <p class="eyebrow">Atendimento premium • visual futurista</p>
+        <h1 id="hero-title">Agende seu horário com praticidade</h1>
+        <p class="hero-description">
+          Escolha o barbeiro, o serviço, a data e o melhor horário disponível
+          para renovar seu visual.
+        </p>
+        <a class="button button-primary" href="#agendamento">Agendar agora</a>
       </div>
-    </header>
+    </section>
 
-    <main id="conteudo-principal">
-      <section class="hero section-spacing" aria-labelledby="hero-title">
-        <div class="container hero-content">
-          <p class="eyebrow">Atendimento premium • visual futurista</p>
-          <h1 id="hero-title">Agende seu horário com praticidade</h1>
-          <p class="hero-description">
-            Escolha o barbeiro, o serviço, a data e o melhor horário disponível
-            para renovar seu visual.
+    <section class="barbers section-spacing" id="barbeiros" aria-labelledby="barbers-title">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Equipe especializada</p>
+          <h2 id="barbers-title">Nossos barbeiros</h2>
+        </div>
+
+        <div class="barbers-grid">
+          <article class="barber-card">
+            <img src="src/images/barbeiro_1.png" alt="Foto ilustrativa de Alex Neon" />
+            <div class="barber-card-content">
+              <h3>Alex Neon</h3>
+              <p>Especialista em fade e design.</p>
+            </div>
+          </article>
+
+          <article class="barber-card">
+            <img src="src/images/barbeiro_2.png" alt="Foto ilustrativa de Rafa Cyber" />
+            <div class="barber-card-content">
+              <h3>Rafa Cyber</h3>
+              <p>Especialista em barba e estilo.</p>
+            </div>
+          </article>
+
+          <article class="barber-card">
+            <img src="src/images/barbeiro_3.png" alt="Foto ilustrativa de Lucas Tech" />
+            <div class="barber-card-content">
+              <h3>Lucas Tech</h3>
+              <p>Especialista em corte clássico.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="about section-spacing" id="quem-somos" aria-labelledby="about-title">
+      <div class="container about-grid">
+        <div class="about-content">
+          <p class="eyebrow">Quem somos</p>
+          <h2 id="about-title">
+            Tradição de barbearia com experiência tecnológica
+          </h2>
+          <p>
+            A Barbearia Futurista combina atendimento personalizado, técnicas
+            modernas e uma estética tecnológica para oferecer cortes, barba e
+            tratamentos com qualidade profissional.
           </p>
-          <a class="button button-primary" href="#agendamento">Agendar agora</a>
+          <p>
+            Nosso objetivo é tornar o agendamento simples, rápido e confiável,
+            evitando conflitos de horário e melhorando a experiência do
+            cliente.
+          </p>
         </div>
-      </section>
 
-      <section class="barbers section-spacing" id="barbeiros" aria-labelledby="barbers-title">
-        <div class="container">
-          <div class="section-heading">
-            <p class="eyebrow">Equipe especializada</p>
-            <h2 id="barbers-title">Nossos barbeiros</h2>
-          </div>
-
-          <div class="barbers-grid">
-            <article class="barber-card">
-              <img src="src/images/barbeiro_1.png" alt="Foto ilustrativa de Alex Neon"/>
-              <div class="barber-card-content">
-                <h3>Alex Neon</h3>
-                <p>Especialista em fade e design.</p>
-              </div>
-            </article>
-
-            <article class="barber-card">
-              <img src="src/images/barbeiro_2.png" alt="Foto ilustrativa de Rafa Cyber"/>
-              <div class="barber-card-content">
-                <h3>Rafa Cyber</h3>
-                <p>Especialista em barba e estilo.</p>
-              </div>
-            </article>
-
-            <article class="barber-card">
-              <img src="src/images/barbeiro_3.png" alt="Foto ilustrativa de Lucas Tech"/>
-              <div class="barber-card-content">
-                <h3>Lucas Tech</h3>
-                <p>Especialista em corte clássico.</p>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="about section-spacing" id="quem-somos" aria-labelledby="about-title">
-        <div class="container about-grid">
-          <div class="about-content">
-            <p class="eyebrow">Quem somos</p>
-            <h2 id="about-title">
-              Tradição de barbearia com experiência tecnológica
-            </h2>
-            <p>
-              A Barbearia Futurista combina atendimento personalizado, técnicas
-              modernas e uma estética tecnológica para oferecer cortes, barba e
-              tratamentos com qualidade profissional.
-            </p>
-            <p>
-              Nosso objetivo é tornar o agendamento simples, rápido e confiável,
-              evitando conflitos de horário e melhorando a experiência do
-              cliente.
-            </p>
-          </div>
-
-          <figure class="about-image-card">
-            <img src="src/images/barbearia.webp" alt="Ambiente ilustrativo da Barbearia Futurista"/>
-          </figure>
-        </div>
-      </section>
-
-      <section class="booking section-spacing" id="agendamento" aria-labelledby="booking-title">
-        <div class="container booking-grid">
-          <div class="booking-copy">
-            <p class="eyebrow">Agendamento online</p>
-            <h2 id="booking-title">Preencha os dados do atendimento</h2>
-            <p>
-              O sistema bloqueia datas passadas, evita horários duplicados e
-              salva os agendamentos localmente no navegador.
-            </p>
-          </div>
-
-          <form class="booking-form" id="form-agendamento" novalidate>
-            <div class="form-field">
-              <label for="cliente">Nome completo</label>
-              <input type="text" id="cliente" name="cliente" placeholder="Ex: João Silva" autocomplete="name"/>
-              <small class="field-error" data-error-for="cliente"></small>
-            </div>
-
-            <div class="form-field">
-              <label for="barbeiro">Barbeiro</label>
-              <select id="barbeiro" name="barbeiro">
-                <option value="">Selecione um barbeiro</option>
-                <option value="Alex Neon">Alex Neon</option>
-                <option value="Rafa Cyber">Rafa Cyber</option>
-                <option value="Lucas Tech">Lucas Tech</option>
-              </select>
-              <small class="field-error" data-error-for="barbeiro"></small>
-            </div>
-
-            <div class="form-field">
-              <label for="servico">Serviço</label>
-              <select id="servico" name="servico">
-                <option value="">Selecione um serviço</option>
-                <option value="corte">Corte de cabelo</option>
-                <option value="barba">Barba</option>
-                <option value="botox">Botox capilar</option>
-                <option value="combo-corte-barba">Combo 1 — Corte + Barba</option>
-                <option value="combo-completo">Combo 2 — Corte + Barba + Botox</option>
-              </select>
-              <small class="field-error" data-error-for="servico"></small>
-            </div>
-
-            <div class="form-field">
-              <label for="data">Data</label>
-              <input type="date" id="data" name="data" />
-              <small class="field-error" data-error-for="data"></small>
-            </div>
-
-            <div class="form-field form-field-full">
-              <label for="hora">Horário</label>
-              <select id="hora" name="hora">
-                <option value="">Selecione data e barbeiro primeiro</option>
-              </select>
-              <small class="field-error" data-error-for="hora"></small>
-            </div>
-
-            <div class="form-actions">
-              <button class="button button-primary" type="submit">
-                Confirmar agendamento
-              </button>
-              <button class="button button-secondary" type="reset">
-                Limpar campos
-              </button>
-            </div>
-
-            <p class="form-message" id="mensagem" aria-live="polite"></p>
-          </form>
-        </div>
-      </section>
-
-      <section
-        class="appointments section-spacing"
-        id="agendamentos"
-        aria-labelledby="appointments-title"
-      >
-        <div class="container">
-          <div class="section-heading">
-            <p class="eyebrow">Controle local</p>
-            <h2 id="appointments-title">Agendamentos confirmados</h2>
-            <p>Os dados ficam salvos no navegador usando LocalStorage.</p>
-          </div>
-
-          <div
-            class="appointments-list"
-            id="lista-agendamentos"
-            aria-live="polite"
-          ></div>
-        </div>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <div class="container footer-content">
-        <p>© 2026 Fadécio Lemos. Todos os direitos reservados.</p>
-        <p>Projeto Frontend • HTML, CSS e JavaScript</p>
-        <a href="#inicio">Voltar ao início</a>
+        <figure class="about-image-card">
+          <img src="src/images/barbearia.webp" alt="Ambiente ilustrativo da Barbearia Futurista" />
+        </figure>
       </div>
-    </footer>
+    </section>
 
-    <script type="module" src="src/js/script.js"></script>
-  </body>
+    <section class="booking section-spacing" id="agendamento" aria-labelledby="booking-title">
+      <div class="container booking-grid">
+        <div class="booking-copy">
+          <p class="eyebrow">Agendamento online</p>
+          <h2 id="booking-title">Preencha os dados do atendimento</h2>
+          <p>
+            O sistema bloqueia datas passadas, evita horários duplicados e
+            salva os agendamentos localmente no navegador. Horários a cada
+            30 minutos, das 08:00 às 20:00 — o último atendimento é às 20:00.
+          </p>
+        </div>
+
+        <form class="booking-form" id="form-agendamento" novalidate autocomplete="off">
+          <div class="form-field">
+            <label for="cliente">Nome completo</label>
+            <input type="text" id="cliente" name="cliente" placeholder="Ex: João Silva" autocomplete="name" />
+            <small class="field-error" data-error-for="cliente"></small>
+          </div>
+
+          <div class="form-field">
+            <label for="barbeiro">Barbeiro</label>
+            <select id="barbeiro" name="barbeiro">
+              <option value="">Selecione um barbeiro</option>
+              <option value="Alex Neon">Alex Neon</option>
+              <option value="Rafa Cyber">Rafa Cyber</option>
+              <option value="Lucas Tech">Lucas Tech</option>
+            </select>
+            <small class="field-error" data-error-for="barbeiro"></small>
+          </div>
+
+          <div class="form-field">
+            <label for="servico">Serviço</label>
+            <select id="servico" name="servico">
+              <option value="">Selecione um serviço</option>
+              <option value="corte">Corte de cabelo</option>
+              <option value="barba">Barba</option>
+              <option value="botox">Botox capilar</option>
+              <option value="combo-corte-barba">Combo 1 — Corte + Barba</option>
+              <option value="combo-completo">Combo 2 — Corte + Barba + Botox</option>
+            </select>
+            <small class="field-error" data-error-for="servico"></small>
+          </div>
+
+          <div class="form-field">
+            <label for="data">Data</label>
+            <input type="date" id="data" name="data" />
+            <small class="field-error" data-error-for="data"></small>
+          </div>
+
+          <div class="form-field form-field-full">
+            <label for="hora">Horário</label>
+            <select id="hora" name="hora">
+              <option value="">Selecione data e barbeiro primeiro</option>
+            </select>
+            <small class="field-error" data-error-for="hora"></small>
+          </div>
+
+          <div class="form-actions">
+            <button class="button button-primary" type="submit">
+              Confirmar agendamento
+            </button>
+            <button class="button button-secondary" type="reset">
+              Limpar campos
+            </button>
+          </div>
+
+          <p class="form-message" id="mensagem" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="appointments section-spacing" id="agendamentos" aria-labelledby="appointments-title">
+      <div class="container">
+        <div class="section-heading">
+          <p class="eyebrow">Controle local</p>
+          <h2 id="appointments-title">Agendamentos confirmados</h2>
+          <p>Os dados ficam salvos no navegador usando LocalStorage.</p>
+        </div>
+
+        <div class="appointments-list" id="lista-agendamentos" aria-live="polite"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-content">
+      <p>© 2026 Fadécio Lemos. Todos os direitos reservados.</p>
+      <p>Projeto Frontend • HTML, CSS e JavaScript</p>
+      <a href="#inicio">Voltar ao início</a>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+  <script type="module" src="src/js/script.js"></script>
+</body>
+
 </html>
