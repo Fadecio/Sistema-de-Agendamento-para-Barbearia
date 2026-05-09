@@ -1,5 +1,37 @@
 import { STORAGE_KEY } from "./data.js";
-import { normalizeHour, normalizeText } from "./utils.js";
+import { normalizeHour, normalizeText, slotToMinutes } from "./utils.js";
+
+function compareAppointmentsByServiceTime(a, b) {
+  const dateA = String(a.data || "").trim();
+  const dateB = String(b.data || "").trim();
+
+  const dateCompare = dateA.localeCompare(dateB);
+
+  if (dateCompare !== 0) {
+    return dateCompare;
+  }
+
+  const timeA = slotToMinutes(a.hora);
+  const timeB = slotToMinutes(b.hora);
+
+  if (timeA !== timeB) {
+    return timeA - timeB;
+  }
+
+  const barberCompare = normalizeText(a.barbeiro).localeCompare(
+    normalizeText(b.barbeiro),
+  );
+
+  if (barberCompare !== 0) {
+    return barberCompare;
+  }
+
+  return Number(a.id || 0) - Number(b.id || 0);
+}
+
+export function sortAppointmentsByServiceTime(appointments) {
+  return [...appointments].sort(compareAppointmentsByServiceTime);
+}
 
 export function getStoredAppointments() {
   const raw = localStorage.getItem(STORAGE_KEY);
@@ -9,7 +41,7 @@ export function getStoredAppointments() {
   try {
     const parsed = JSON.parse(raw);
 
-    return Array.isArray(parsed) ? parsed : [];
+    return Array.isArray(parsed) ? sortAppointmentsByServiceTime(parsed) : [];
   } catch (error) {
     console.warn(
       "LocalStorage de agendamentos está inválido. Resetando lista.",
@@ -23,7 +55,9 @@ export function getStoredAppointments() {
 }
 
 export function saveAppointments(appointments) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(appointments));
+  const sortedAppointments = sortAppointmentsByServiceTime(appointments);
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(sortedAppointments));
 }
 
 export function getNextBarberSequence(appointments, barberName, dateValue) {

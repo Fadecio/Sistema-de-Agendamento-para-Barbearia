@@ -1,114 +1,19 @@
 import { initAnimations } from "./animations.js";
-<<<<<<< HEAD
-
-function getErrorElement(inputElement) {
-  if (!inputElement) return null;
-  const field = inputElement.closest(".form-field");
-  if (!field) return null;
-  return field.querySelector(".field-error");
-}
-
-function normalizeText(value) {
-  return String(value || "")
-    .trim()
-    .toLowerCase();
-}
-
-function normalizeHour(value) {
-  const [rawHour = "", rawMinute = ""] = String(value || "")
-    .trim()
-    .split(":");
-  const hour = rawHour.padStart(2, "0");
-  const minute = rawMinute.padStart(2, "0");
-  return `${hour}:${minute}`;
-}
-
-function buildTimeSlots(startHour = 8, endHour = 20) {
-  const slots = [];
-  for (let hour = startHour; hour <= endHour; hour++) {
-    const minutes = hour === endHour ? ["00"] : ["00", "30"];
-    minutes.forEach((min) => {
-      slots.push(`${String(hour).padStart(2, "0")}:${min}`);
-    });
-  }
-  return slots;
-}
-
-function getTodayISODate() {
-  const today = new Date();
-  const year = today.getFullYear();
-  const month = String(today.getMonth() + 1).padStart(2, "0");
-  const day = String(today.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
-}
-
-function slotToMinutes(timeValue) {
-  const [hh, mm] = normalizeHour(timeValue)
-    .split(":")
-    .map((n) => Number(n));
-  if (!Number.isFinite(hh) || !Number.isFinite(mm)) return NaN;
-  return hh * 60 + mm;
-}
-
-function getNowMinutesLocal() {
-  const n = new Date();
-  return n.getHours() * 60 + n.getMinutes();
-}
-
-function formatDateBR(value) {
-  if (!value) return "--/--/----";
-  const [year, month, day] = String(value).split("-");
-  if (!year || !month || !day) return value;
-  return `${day}/${month}/${year}`;
-}
-
-function newAppointmentId() {
-  if (typeof crypto !== "undefined" && typeof crypto.randomUUID === "function") {
-    return crypto.randomUUID();
-  }
-  return `ag-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
-}
-
-function formatCriadoEmDisplay(iso) {
-  if (!iso) return "--";
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return String(iso);
-  return d.toLocaleString("pt-BR", {
-    day: "2-digit",
-    month: "2-digit",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-}
-
-function getStoredAppointments() {
-  const raw = localStorage.getItem("agendamentos");
-  if (!raw) return [];
-
-  try {
-    const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed : [];
-  } catch (error) {
-    console.warn(
-      "LocalStorage de agendamentos está inválido. Resetando lista.",
-      error,
-    );
-    localStorage.removeItem("agendamentos");
-    return [];
-  }
-}
-=======
-import { buildTimeSlots, getHourOptions } from "./schedule.js";
+import { buildTimeSlots, getHourOptions } from "./agenda.js";
 import {
   getNextBarberSequence,
   getStoredAppointments,
   hasScheduleConflict,
   removeAppointmentByIndex,
   saveAppointments,
+  sortAppointmentsByServiceTime,
 } from "./storage.js";
 import { getTodayISODate, normalizeText } from "./utils.js";
-import { isPastDate, isPastHourToday, validateRequiredFields,} from "./validation.js";
+import {
+  isPastDate,
+  isPastHourToday,
+  validateRequiredFields,
+} from "./validation.js";
 import {
   clearFieldError,
   clearFormErrors,
@@ -120,7 +25,26 @@ import {
   setHourPlaceholder,
   showMessage,
 } from "./ui.js";
->>>>>>> fc0cc5f (refactor: separa responsabilidades do script em módulos)
+import { sendAppointmentToN8n } from "./n8n.js";
+
+function createAppointment({
+  appointments,
+  cliente,
+  barbeiro,
+  servico,
+  data,
+  hora,
+}) {
+  return {
+    id: getNextBarberSequence(appointments, barbeiro, data),
+    horaDoAgendamento: new Date().toISOString(),
+    cliente,
+    barbeiro,
+    servico,
+    data,
+    hora,
+  };
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   const elements = getPageElements();
@@ -130,85 +54,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-<<<<<<< HEAD
-  function renderAppointments() {
-    const lista = getStoredAppointments();
-    listaAgendamentos.innerHTML = "";
-
-    if (!lista.length) {
-      const emptyState = document.createElement("article");
-      emptyState.className = "empty-state";
-      emptyState.textContent = "Nenhum agendamento confirmado até o momento.";
-      listaAgendamentos.appendChild(emptyState);
-      return;
-    }
-
-    lista.forEach((item, index) => {
-      const card = document.createElement("article");
-      card.className = "appointment-card";
-
-      const titulo = document.createElement("h3");
-      titulo.textContent = item.cliente || "Cliente não informado";
-      card.appendChild(titulo);
-
-      const meta = document.createElement("div");
-      meta.className = "appointment-meta";
-
-      const barbeiro = document.createElement("p");
-      barbeiro.textContent = `Barbeiro: ${item.barbeiro || "-"}`;
-
-      const servico = document.createElement("p");
-      servico.textContent = `Serviço: ${item.servico || "-"}`;
-
-      const data = document.createElement("p");
-      data.textContent = `Data: ${formatDateBR(item.data)}`;
-
-      const horario = document.createElement("p");
-      horario.textContent = `Horário: ${item.hora || "-"}`;
-
-      const idLinha = document.createElement("p");
-      idLinha.textContent = `ID: ${item.id || "-"}`;
-
-      const criadoLinha = document.createElement("p");
-      criadoLinha.textContent = `Criado em: ${formatCriadoEmDisplay(item.criadoEm)}`;
-
-      meta.append(barbeiro, servico, data, horario, idLinha, criadoLinha);
-      card.appendChild(meta);
-
-      const cancelButton = document.createElement("button");
-      cancelButton.type = "button";
-      cancelButton.className = "cancel-button";
-      cancelButton.dataset.index = String(index);
-      cancelButton.textContent = "Cancelar agendamento";
-      card.appendChild(cancelButton);
-
-      listaAgendamentos.appendChild(card);
-    });
-  }
-
-  initAnimations();
-
-  let successMessageTimer = null;
-
-  function showMessage(text, type) {
-    if (successMessageTimer) {
-      clearTimeout(successMessageTimer);
-      successMessageTimer = null;
-    }
-
-    mensagem.textContent = text;
-    mensagem.className = type ? `form-message ${type}` : "form-message";
-
-    if (type === "success" && text.trim()) {
-      successMessageTimer = window.setTimeout(() => {
-        successMessageTimer = null;
-        mensagem.textContent = "";
-        mensagem.className = "form-message";
-      }, 4000);
-    }
-  }
-
-=======
   const {
     clienteInput,
     barbeiroInput,
@@ -222,14 +67,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   initAnimations();
 
->>>>>>> fc0cc5f (refactor: separa responsabilidades do script em módulos)
   const todayISO = getTodayISODate();
   const allTimeSlots = buildTimeSlots();
 
-  dataInput.min = todayISO;
+  dataInput.setAttribute("min", todayISO);
 
   function refreshAppointments() {
-    const appointments = getStoredAppointments();
+    const appointments = sortAppointmentsByServiceTime(getStoredAppointments());
     renderAppointments(listaAgendamentos, appointments);
   }
 
@@ -238,67 +82,24 @@ document.addEventListener("DOMContentLoaded", () => {
     const selectedDate = dataInput.value;
     const previousValue = horaSelect.value;
 
-    if (!normalizeText(selectedBarber) || !selectedDate.trim()) {
-      setHourPlaceholder(horaSelect, "Selecione data e barbeiro primeiro");
+    const hasBarber = normalizeText(selectedBarber) !== "";
+    const hasDate = String(selectedDate || "").trim() !== "";
+
+    if (!hasBarber && !hasDate) {
+      setHourPlaceholder(horaSelect, "Selecione barbeiro e data primeiro");
       return;
     }
 
-<<<<<<< HEAD
-    const previousValue = horaSelect.value;
-
-    const lista = getStoredAppointments();
-    const occupiedHours = new Set(
-      lista
-        .filter((item) => {
-          return (
-            normalizeText(item.barbeiro) === selectedBarber &&
-            String(item.data || "").trim() === selectedDate
-          );
-        })
-        .map((item) => normalizeHour(item.hora)),
-    );
-
-    const isToday = selectedDate === getTodayISODate();
-    const nowMin = getNowMinutesLocal();
-
-    horaSelect.innerHTML = "";
-
-    const initialOption = document.createElement("option");
-    initialOption.value = "";
-    initialOption.textContent = "Selecione um horário";
-    horaSelect.appendChild(initialOption);
-
-    allTimeSlots.forEach((hour) => {
-      const option = document.createElement("option");
-      option.value = hour;
-      const ocupado = occupiedHours.has(hour);
-      const slotMin = slotToMinutes(hour);
-      const passou =
-        isToday &&
-        Number.isFinite(slotMin) &&
-        slotMin < nowMin;
-      option.disabled = ocupado || passou;
-      if (ocupado) {
-        option.textContent = `${hour} — ocupado`;
-      } else if (passou) {
-        option.textContent = `${hour} — expirado`;
-      } else {
-        option.textContent = hour;
-      }
-      horaSelect.appendChild(option);
-    });
-
-    const canRestore =
-      previousValue &&
-      [...horaSelect.options].some(
-        (o) => o.value === previousValue && !o.disabled,
-      );
-    if (canRestore) {
-      horaSelect.value = previousValue;
-    } else {
-      horaSelect.selectedIndex = 0;
+    if (!hasBarber) {
+      setHourPlaceholder(horaSelect, "Selecione um barbeiro primeiro");
+      return;
     }
-=======
+
+    if (!hasDate) {
+      setHourPlaceholder(horaSelect, "Selecione uma data primeiro");
+      return;
+    }
+
     const appointments = getStoredAppointments();
 
     const hourOptions = getHourOptions({
@@ -309,29 +110,32 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     renderHourOptions(horaSelect, hourOptions, previousValue);
->>>>>>> fc0cc5f (refactor: separa responsabilidades do script em módulos)
   }
 
   refreshAppointments();
   refreshAvailableHours();
 
   barbeiroInput.addEventListener("change", refreshAvailableHours);
-  dataInput.addEventListener("change", refreshAvailableHours);
+  dataInput.addEventListener("change", () => {
+    const today = getTodayISODate();
+
+    if (dataInput.value && dataInput.value < today) {
+      dataInput.value = "";
+      setFieldError(dataInput, "Não é permitido escolher datas passadas.");
+      setHourPlaceholder(horaSelect, "Selecione uma data válida primeiro");
+      showMessage(mensagem, "Escolha uma data de hoje em diante.", "error");
+      return;
+    }
+
+    clearFieldError(dataInput);
+    refreshAvailableHours();
+  });
 
   window.setInterval(() => {
     const isTodaySelected = dataInput.value === getTodayISODate();
 
     if (normalizeText(barbeiroInput.value) && isTodaySelected) {
       refreshAvailableHours();
-    }
-  }, 60_000);
-
-  window.setInterval(() => {
-    if (
-      normalizeText(barbeiroInput.value) &&
-      String(dataInput.value || "").trim() === getTodayISODate()
-    ) {
-      updateAvailableHours();
     }
   }, 60_000);
 
@@ -355,17 +159,10 @@ document.addEventListener("DOMContentLoaded", () => {
     showMessage(mensagem, "Agendamento cancelado com sucesso.", "success");
   });
 
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();    
+    const submitButton = form.querySelector('button[type="submit"]');   
 
-<<<<<<< HEAD
-    const campos = [
-      { elemento: clienteInput, nome: "Nome" },
-      { elemento: barbeiroInput, nome: "Barbeiro" },
-      { elemento: servicoInput, nome: "Serviço" },
-      { elemento: dataInput, nome: "Data" },
-      { elemento: horaSelect, nome: "Horário" },
-=======
     clearFormErrors(form);
     showMessage(mensagem);
 
@@ -375,7 +172,6 @@ document.addEventListener("DOMContentLoaded", () => {
       { element: servicoInput, name: "Serviço" },
       { element: dataInput, name: "Data" },
       { element: horaSelect, name: "Horário" },
->>>>>>> fc0cc5f (refactor: separa responsabilidades do script em módulos)
     ];
 
     const requiredErrors = validateRequiredFields(requiredFields);
@@ -384,48 +180,6 @@ document.addEventListener("DOMContentLoaded", () => {
       setFieldError(error.element, error.message);
     });
 
-<<<<<<< HEAD
-    if (temErro) return;
-
-    const dataError = getErrorElement(dataInput);
-    const todayStr = getTodayISODate();
-    if (dataInput.value < todayStr) {
-      if (dataError) {
-        dataError.textContent = "Não é permitido agendar datas passadas.";
-      }
-      return;
-    }
-
-    const horaOpt = horaSelect.selectedOptions[0];
-    if (horaOpt?.disabled) {
-      showMessage("Escolha um horário disponível.", "error");
-      return;
-    }
-
-    const horaError = getErrorElement(horaSelect);
-    if (dataInput.value === todayStr) {
-      const slotMin = slotToMinutes(horaSelect.value);
-      if (
-        Number.isFinite(slotMin) &&
-        slotMin < getNowMinutesLocal()
-      ) {
-        if (horaError) {
-          horaError.textContent =
-            "Não é possível agendar horários que já passaram hoje.";
-        }
-        horaSelect.closest(".form-field")?.classList.add("has-error");
-        showMessage(
-          "Escolha um horário que ainda não tenha passado hoje.",
-          "error",
-        );
-        return;
-      }
-    }
-
-    const agendamento = {
-      id: newAppointmentId(),
-      criadoEm: new Date().toISOString(),
-=======
     if (requiredErrors.length) {
       return;
     }
@@ -459,19 +213,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const appointments = getStoredAppointments();
 
-    const barberName = barbeiroInput.value.trim();
-    const dateValue = dataInput.value.trim();
-
-    const appointment = {
-      id: getNextBarberSequence(appointments, barberName, dateValue),
-      horaDoAgendamento: new Date().toISOString(),
->>>>>>> fc0cc5f (refactor: separa responsabilidades do script em módulos)
+    const appointment = createAppointment({
+      appointments,
       cliente: clienteInput.value.trim(),
-      barbeiro: barberName,
+      barbeiro: barbeiroInput.value.trim(),
       servico: servicoInput.value.trim(),
-      data: dateValue,
+      data: dataInput.value.trim(),
       hora: horaSelect.value.trim(),
-    };
+    });
 
     if (hasScheduleConflict(appointments, appointment)) {
       setFieldError(horaSelect, "Este horário já está ocupado.");
@@ -484,35 +233,40 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    submitButton.disabled = true;
+
     appointments.push(appointment);
     saveAppointments(appointments);
 
-    form.reset();
-    clearFormErrors(form);
+    let feedbackMessage = "Agendamento salvo com sucesso!";
+    let feedbackType = "success";
 
-    refreshAppointments();
-    refreshAvailableHours();
-
-    showMessage(mensagem, "Agendamento salvo com sucesso!", "success");
+    try {
+      const n8nResult = await sendAppointmentToN8n(appointment);
+    
+      if (n8nResult?.skipped) {
+        feedbackMessage = "Agendamento salvo com sucesso!";
+      } else {
+        feedbackMessage = "Agendamento salvo e enviado com sucesso!";
+      }
+    } catch (error) {
+      console.error("Erro ao enviar agendamento para o n8n:", error);
+      feedbackMessage =
+        "Agendamento salvo localmente, mas não foi enviado ao n8n.";
+      feedbackType = "error";
+    } finally {
+      form.reset();
+      clearFormErrors(form);
+    
+      refreshAppointments();
+      refreshAvailableHours();
+    
+      showMessage(mensagem, feedbackMessage, feedbackType);
+      submitButton.disabled = false;
+    }
   });
 
   form.addEventListener("reset", () => {
-<<<<<<< HEAD
-    document.querySelectorAll(".field-error").forEach((element) => {
-      element.textContent = "";
-    });
-
-    document.querySelectorAll(".form-field").forEach((field) => {
-      field.classList.remove("has-error");
-    });
-
-    showMessage("", "");
-
-    window.setTimeout(() => {
-      updateAvailableHours();
-    }, 0);
-  });
-=======
     clearFormErrors(form);
     showMessage(mensagem);
 
@@ -532,5 +286,4 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     },
   );
->>>>>>> fc0cc5f (refactor: separa responsabilidades do script em módulos)
 });

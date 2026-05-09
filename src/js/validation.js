@@ -4,7 +4,9 @@ export function validateRequiredFields(fields) {
   const errors = [];
 
   fields.forEach((field) => {
-    if (!field.element.value.trim()) {
+    const value = String(field.element.value || "").trim();
+
+    if (value === "") {
       errors.push({
         element: field.element,
         message: `O campo ${field.name} é obrigatório.`,
@@ -16,7 +18,7 @@ export function validateRequiredFields(fields) {
 }
 
 export function isPastDate(dateValue) {
-  return dateValue < getTodayISODate();
+  return String(dateValue || "").trim() < getTodayISODate();
 }
 
 export function isPastHourToday(dateValue, hourValue) {

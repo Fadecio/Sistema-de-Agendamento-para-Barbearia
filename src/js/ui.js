@@ -162,7 +162,7 @@ export function renderAppointments(container, appointments) {
     idLine.textContent = `ID do cliente (barbeiro/dia): ${item.id || "-"}`;
 
     const createdLine = document.createElement("p");
-    createdLine.textContent = `Hora do agendamento: ${formatCreatedHourDisplay(
+    createdLine.textContent = `Criado às: ${formatCreatedHourDisplay(
       item.horaDoAgendamento || item.criadoEm,
     )}`;
 
