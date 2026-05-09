@@ -1,4 +1,5 @@
 import { initAnimations } from "./animations.js";
+<<<<<<< HEAD
 
 function getErrorElement(inputElement) {
   if (!inputElement) return null;
@@ -97,31 +98,39 @@ function getStoredAppointments() {
     return [];
   }
 }
+=======
+import { buildTimeSlots, getHourOptions } from "./schedule.js";
+import {
+  getNextBarberSequence,
+  getStoredAppointments,
+  hasScheduleConflict,
+  removeAppointmentByIndex,
+  saveAppointments,
+} from "./storage.js";
+import { getTodayISODate, normalizeText } from "./utils.js";
+import { isPastDate, isPastHourToday, validateRequiredFields,} from "./validation.js";
+import {
+  clearFieldError,
+  clearFormErrors,
+  getPageElements,
+  hasRequiredElements,
+  renderAppointments,
+  renderHourOptions,
+  setFieldError,
+  setHourPlaceholder,
+  showMessage,
+} from "./ui.js";
+>>>>>>> fc0cc5f (refactor: separa responsabilidades do script em módulos)
 
 document.addEventListener("DOMContentLoaded", () => {
-  const clienteInput = document.getElementById("cliente");
-  const barbeiroInput = document.getElementById("barbeiro");
-  const servicoInput = document.getElementById("servico");
-  const dataInput = document.getElementById("data");
-  const horaSelect = document.getElementById("hora");
-  const form = document.getElementById("form-agendamento");
-  const mensagem = document.getElementById("mensagem");
-  const listaAgendamentos = document.getElementById("lista-agendamentos");
+  const elements = getPageElements();
 
-  if (
-    !clienteInput ||
-    !barbeiroInput ||
-    !servicoInput ||
-    !dataInput ||
-    !horaSelect ||
-    !form ||
-    !mensagem ||
-    !listaAgendamentos
-  ) {
+  if (!hasRequiredElements(elements)) {
     console.error("Estrutura do formulário não encontrada no DOM.");
     return;
   }
 
+<<<<<<< HEAD
   function renderAppointments() {
     const lista = getStoredAppointments();
     listaAgendamentos.innerHTML = "";
@@ -199,29 +208,42 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+=======
+  const {
+    clienteInput,
+    barbeiroInput,
+    servicoInput,
+    dataInput,
+    horaSelect,
+    form,
+    mensagem,
+    listaAgendamentos,
+  } = elements;
+
+  initAnimations();
+
+>>>>>>> fc0cc5f (refactor: separa responsabilidades do script em módulos)
   const todayISO = getTodayISODate();
-  dataInput.min = todayISO;
-  renderAppointments();
   const allTimeSlots = buildTimeSlots();
 
-  function setHourPlaceholder(text) {
-    horaSelect.innerHTML = "";
-    const option = document.createElement("option");
-    option.value = "";
-    option.textContent = text;
-    horaSelect.appendChild(option);
-    horaSelect.value = "";
+  dataInput.min = todayISO;
+
+  function refreshAppointments() {
+    const appointments = getStoredAppointments();
+    renderAppointments(listaAgendamentos, appointments);
   }
 
-  function updateAvailableHours() {
-    const selectedBarber = normalizeText(barbeiroInput.value);
-    const selectedDate = String(dataInput.value || "").trim();
+  function refreshAvailableHours() {
+    const selectedBarber = barbeiroInput.value;
+    const selectedDate = dataInput.value;
+    const previousValue = horaSelect.value;
 
-    if (!selectedBarber || !selectedDate) {
-      setHourPlaceholder("Selecione data e barbeiro primeiro");
+    if (!normalizeText(selectedBarber) || !selectedDate.trim()) {
+      setHourPlaceholder(horaSelect, "Selecione data e barbeiro primeiro");
       return;
     }
 
+<<<<<<< HEAD
     const previousValue = horaSelect.value;
 
     const lista = getStoredAppointments();
@@ -276,11 +298,33 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       horaSelect.selectedIndex = 0;
     }
+=======
+    const appointments = getStoredAppointments();
+
+    const hourOptions = getHourOptions({
+      appointments,
+      barberName: selectedBarber,
+      dateValue: selectedDate,
+      timeSlots: allTimeSlots,
+    });
+
+    renderHourOptions(horaSelect, hourOptions, previousValue);
+>>>>>>> fc0cc5f (refactor: separa responsabilidades do script em módulos)
   }
 
-  updateAvailableHours();
-  barbeiroInput.addEventListener("change", updateAvailableHours);
-  dataInput.addEventListener("change", updateAvailableHours);
+  refreshAppointments();
+  refreshAvailableHours();
+
+  barbeiroInput.addEventListener("change", refreshAvailableHours);
+  dataInput.addEventListener("change", refreshAvailableHours);
+
+  window.setInterval(() => {
+    const isTodaySelected = dataInput.value === getTodayISODate();
+
+    if (normalizeText(barbeiroInput.value) && isTodaySelected) {
+      refreshAvailableHours();
+    }
+  }, 60_000);
 
   window.setInterval(() => {
     if (
@@ -293,56 +337,54 @@ document.addEventListener("DOMContentLoaded", () => {
 
   listaAgendamentos.addEventListener("click", (event) => {
     const target = event.target;
+
     if (!(target instanceof HTMLElement)) return;
 
     const cancelButton = target.closest(".cancel-button");
+
     if (!cancelButton) return;
 
     const index = Number(cancelButton.dataset.index);
+
     if (!Number.isInteger(index)) return;
 
-    const lista = getStoredAppointments();
-    if (index < 0 || index >= lista.length) return;
+    removeAppointmentByIndex(index);
+    refreshAppointments();
+    refreshAvailableHours();
 
-    lista.splice(index, 1);
-    localStorage.setItem("agendamentos", JSON.stringify(lista));
-    renderAppointments();
-    updateAvailableHours();
-    showMessage("Agendamento cancelado com sucesso.", "success");
+    showMessage(mensagem, "Agendamento cancelado com sucesso.", "success");
   });
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
 
+<<<<<<< HEAD
     const campos = [
       { elemento: clienteInput, nome: "Nome" },
       { elemento: barbeiroInput, nome: "Barbeiro" },
       { elemento: servicoInput, nome: "Serviço" },
       { elemento: dataInput, nome: "Data" },
       { elemento: horaSelect, nome: "Horário" },
+=======
+    clearFormErrors(form);
+    showMessage(mensagem);
+
+    const requiredFields = [
+      { element: clienteInput, name: "Nome" },
+      { element: barbeiroInput, name: "Barbeiro" },
+      { element: servicoInput, name: "Serviço" },
+      { element: dataInput, name: "Data" },
+      { element: horaSelect, name: "Horário" },
+>>>>>>> fc0cc5f (refactor: separa responsabilidades do script em módulos)
     ];
 
-    let temErro = false;
+    const requiredErrors = validateRequiredFields(requiredFields);
 
-    document.querySelectorAll(".field-error").forEach((element) => {
-      element.textContent = "";
-    });
-    showMessage("", "");
-
-    campos.forEach((campo) => {
-      const erroMsg = getErrorElement(campo.elemento);
-      const field = campo.elemento.closest(".form-field");
-      if (!erroMsg || !field) return;
-
-      if (!campo.elemento.value.trim()) {
-        field.classList.add("has-error");
-        erroMsg.textContent = `O campo ${campo.nome} é obrigatório.`;
-        temErro = true;
-      } else {
-        field.classList.remove("has-error");
-      }
+    requiredErrors.forEach((error) => {
+      setFieldError(error.element, error.message);
     });
 
+<<<<<<< HEAD
     if (temErro) return;
 
     const dataError = getErrorElement(dataInput);
@@ -383,42 +425,79 @@ document.addEventListener("DOMContentLoaded", () => {
     const agendamento = {
       id: newAppointmentId(),
       criadoEm: new Date().toISOString(),
-      cliente: clienteInput.value.trim(),
-      barbeiro: barbeiroInput.value.trim(),
-      servico: servicoInput.value.trim(),
-      data: dataInput.value.trim(),
-      hora: horaSelect.value.trim(),
-    };
-
-    const lista = getStoredAppointments();
-    const barberKey = normalizeText(agendamento.barbeiro);
-    const dateKey = String(agendamento.data || "").trim();
-    const hourKey = normalizeHour(agendamento.hora);
-
-    const horarioDuplicado = lista.some((item) => {
-      return (
-        normalizeText(item.barbeiro) === barberKey &&
-        String(item.data || "").trim() === dateKey &&
-        normalizeHour(item.hora) === hourKey
-      );
-    });
-
-    if (horarioDuplicado) {
-      showMessage("Este barbeiro já possui agendamento nesse horário.", "error");
+=======
+    if (requiredErrors.length) {
       return;
     }
 
-    lista.push(agendamento);
-    localStorage.setItem("agendamentos", JSON.stringify(lista));
-    renderAppointments();
-    updateAvailableHours();
+    if (isPastDate(dataInput.value)) {
+      setFieldError(dataInput, "Não é permitido agendar datas passadas.");
+      showMessage(mensagem, "Revise a data escolhida.", "error");
+      return;
+    }
 
-    showMessage("Agendamento salvo com sucesso!", "success");
+    const selectedHourOption = horaSelect.selectedOptions[0];
+
+    if (selectedHourOption?.disabled) {
+      setFieldError(horaSelect, "Escolha um horário disponível.");
+      showMessage(mensagem, "Escolha um horário disponível.", "error");
+      return;
+    }
+
+    if (isPastHourToday(dataInput.value, horaSelect.value)) {
+      setFieldError(
+        horaSelect,
+        "Não é possível agendar horários que já passaram hoje.",
+      );
+      showMessage(
+        mensagem,
+        "Escolha um horário que ainda não tenha passado hoje.",
+        "error",
+      );
+      return;
+    }
+
+    const appointments = getStoredAppointments();
+
+    const barberName = barbeiroInput.value.trim();
+    const dateValue = dataInput.value.trim();
+
+    const appointment = {
+      id: getNextBarberSequence(appointments, barberName, dateValue),
+      horaDoAgendamento: new Date().toISOString(),
+>>>>>>> fc0cc5f (refactor: separa responsabilidades do script em módulos)
+      cliente: clienteInput.value.trim(),
+      barbeiro: barberName,
+      servico: servicoInput.value.trim(),
+      data: dateValue,
+      hora: horaSelect.value.trim(),
+    };
+
+    if (hasScheduleConflict(appointments, appointment)) {
+      setFieldError(horaSelect, "Este horário já está ocupado.");
+      showMessage(
+        mensagem,
+        "Este barbeiro já possui agendamento nesse horário.",
+        "error",
+      );
+      refreshAvailableHours();
+      return;
+    }
+
+    appointments.push(appointment);
+    saveAppointments(appointments);
+
     form.reset();
-    updateAvailableHours();
+    clearFormErrors(form);
+
+    refreshAppointments();
+    refreshAvailableHours();
+
+    showMessage(mensagem, "Agendamento salvo com sucesso!", "success");
   });
 
   form.addEventListener("reset", () => {
+<<<<<<< HEAD
     document.querySelectorAll(".field-error").forEach((element) => {
       element.textContent = "";
     });
@@ -433,4 +512,25 @@ document.addEventListener("DOMContentLoaded", () => {
       updateAvailableHours();
     }, 0);
   });
+=======
+    clearFormErrors(form);
+    showMessage(mensagem);
+
+    window.setTimeout(() => {
+      refreshAvailableHours();
+    }, 0);
+  });
+
+  [clienteInput, barbeiroInput, servicoInput, dataInput, horaSelect].forEach(
+    (input) => {
+      input.addEventListener("input", () => {
+        clearFieldError(input);
+      });
+
+      input.addEventListener("change", () => {
+        clearFieldError(input);
+      });
+    },
+  );
+>>>>>>> fc0cc5f (refactor: separa responsabilidades do script em módulos)
 });
